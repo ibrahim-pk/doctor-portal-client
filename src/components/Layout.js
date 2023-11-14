@@ -77,8 +77,8 @@ function Layout({ children }) {
       <div className="d-flex layout">
         <div className="sidebar">
           <div className="sidebar-header">
-            <h1 className="logo">SH</h1>
-            <h1 className="role">{role}</h1>
+            <h6 className="logo my-1">Psychology Appointment</h6>
+            <h1 className="role my-1">{role}</h1>
           </div>
 
           <div className="menu">
