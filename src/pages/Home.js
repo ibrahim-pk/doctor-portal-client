@@ -6,6 +6,7 @@ import { toast } from "react-hot-toast";
 import axios from "axios";
 import { Table } from "antd";
 import moment from "moment";
+import AdminHome from "./Admin/Home";
 
 function Home() {
   const userId = JSON.parse(localStorage.getItem("userInfo"))?._id;
@@ -54,19 +55,18 @@ function Home() {
     }
   };
 
-  const handleApprove = async ({id,status,phone}) => {
-
-   //console.log(id,status,phone,msg);
-   const formData={
-        id:id,
-        status:status,
-        msg:msg,
-        phoneNo:phone
-   }
+  const handleApprove = async ({ id, status, phone }) => {
+    //console.log(id,status,phone,msg);
+    const formData = {
+      id: id,
+      status: status,
+      msg: msg,
+      phoneNo: phone,
+    };
     const { data } = await axios.put(
       `https://portal-server-rosy.vercel.app/api/user/update-appointments-by-id/${id}`,
       {
-        formData
+        formData,
       },
       {
         headers: {
@@ -78,8 +78,8 @@ function Home() {
       //console.log(data);
       // console.log(data);
       toast.success(data?.msg);
-      setMsg("")
-      window.location.href='/'
+      setMsg("");
+      window.location.href = "/";
     }
   };
 
@@ -102,34 +102,33 @@ function Home() {
   //   }
   // };
 
-  const handleCancel = async ({id,status,phone}) => {
-
+  const handleCancel = async ({ id, status, phone }) => {
     //console.log(id,status,phone,msg);
-    const formData={
-         id:id,
-         status:status,
-         msg:msg,
-         phoneNo:phone
+    const formData = {
+      id: id,
+      status: status,
+      msg: msg,
+      phoneNo: phone,
+    };
+    const { data } = await axios.put(
+      `https://portal-server-rosy.vercel.app/api/user/update-appointments-by-id/${id}`,
+      {
+        formData,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    if (data?.msg) {
+      //console.log(data);
+      // console.log(data);
+      toast.success(data?.msg);
+      setMsg("");
+      window.location.href = "/";
     }
-     const { data } = await axios.put(
-       `https://portal-server-rosy.vercel.app/api/user/update-appointments-by-id/${id}`,
-       {
-         formData
-       },
-       {
-         headers: {
-           Authorization: `Bearer ${localStorage.getItem("token")}`,
-         },
-       }
-     );
-     if (data?.msg) {
-       //console.log(data);
-       // console.log(data);
-       toast.success(data?.msg);
-       setMsg("")
-       window.location.href='/'
-     }
-   };
+  };
 
   const columns = [
     {
@@ -159,10 +158,15 @@ function Home() {
         <span>
           {doctor ? (
             <div>
-              <textarea onChange={(e)=>setMsg(e.target.value)} placeholder="Your message" /><br />
+              <textarea
+                onChange={(e) => setMsg(e.target.value)}
+                placeholder="Your message"
+              />
+              <br />
               <button
-              data-toggle="modal" data-target="#exampleModalCenter"
-               type="button"
+                data-toggle="modal"
+                data-target="#exampleModalCenter"
+                type="button"
                 disabled={record.status === 1 ? true : false}
                 style={{
                   backgroundColor: "green",
@@ -172,9 +176,15 @@ function Home() {
                   borderRadius: "5px",
                   padding: "5px",
                 }}
-                onClick={() => handleApprove({id:record?._id,status:1,phone:record?.mobileNo})}
+                onClick={() =>
+                  handleApprove({
+                    id: record?._id,
+                    status: 1,
+                    phone: record?.mobileNo,
+                  })
+                }
               >
-               Approve
+                Approve
               </button>
               <button
                 disabled={record.status === -1 ? true : false}
@@ -186,7 +196,13 @@ function Home() {
                   borderRadius: "5px",
                   padding: "5px",
                 }}
-                onClick={() => handleCancel({id:record?._id,status:1,phone:record?.mobileNo})}
+                onClick={() =>
+                  handleCancel({
+                    id: record?._id,
+                    status: 1,
+                    phone: record?.mobileNo,
+                  })
+                }
               >
                 Cancel
               </button>
@@ -208,15 +224,22 @@ function Home() {
   }, []);
   return (
     <Layout>
-      <h1 className="page-title">Appointments</h1>
-      <hr />
-      <Table columns={columns} dataSource={appointments} />
-        
+      <div>
+        {admin && (
+          <div>
+           <AdminHome />
+          </div>
+        )}
+        {!admin && (
+          <div>
+            <h1 className="page-title">Appointments</h1>
+            <hr />
+            <Table columns={columns} dataSource={appointments} />
+          </div>
+        )}
+      </div>
     </Layout>
   );
 }
 
 export default Home;
-
-
-

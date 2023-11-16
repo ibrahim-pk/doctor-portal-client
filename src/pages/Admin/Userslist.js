@@ -30,6 +30,10 @@ function Userslist() {
     getUsersData();
   }, []);
 
+  const adminDoctor=users.filter((pd)=>pd.isAdmin)
+  const allusers=users.filter((pd)=>(!(pd.isAdmin))&&(!(pd.isDoctor)))
+
+
   const columns = [
     {
       title: "Name",
@@ -49,7 +53,7 @@ function Userslist() {
       dataIndex: "actions",
       render: (text, record) => (
         <div className="d-flex">
-          <h1 className="anchor">Block</h1>
+          <h1 className="anchor">{record.isAdmin?'Admin':record.isDoctor?'Doctor':'User'}</h1>
         </div>
       ),
     },
@@ -57,9 +61,17 @@ function Userslist() {
 
   return (
     <Layout>
-      <h1 className="page-header">Users List</h1>
+      <div>
+      <h1 className="page-header">Admin or Doctor</h1>
       <hr />
-      <Table columns={columns} dataSource={users}/>
+      <Table columns={columns} dataSource={adminDoctor}/>
+      </div>
+      <hr />
+      <div>
+      <h1 className="page-header">Users</h1>
+      <hr />
+      <Table columns={columns} dataSource={allusers}/>
+      </div>
     </Layout>
   );
 }
