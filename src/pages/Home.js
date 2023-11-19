@@ -218,7 +218,7 @@ function Home() {
       ),
     },
   ];
-
+// use useeffect
   useEffect(() => {
     getAppointmentsData();
   }, []);
