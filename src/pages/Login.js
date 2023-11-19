@@ -9,6 +9,7 @@ import axios from "axios";
 import { hideLoading, showLoading } from "../redux/alertsSlice";
 
 function Login() {
+  //auth
   const provider = new GoogleAuthProvider();
   const auth = getAuth(app);
   const dispatch = useDispatch();
