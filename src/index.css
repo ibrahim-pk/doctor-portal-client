@@ -124,3 +124,16 @@ p{
   margin-left: -40px;
   border-bottom-left-radius: 10px;
 }
+
+.BannerSection img{
+  width: 500px;
+  height: auto;
+}
+@media screen and (max-width: 768px){
+
+  .BannerSection img{
+    width: 300px;
+    height: auto;
+  }
+  
+}

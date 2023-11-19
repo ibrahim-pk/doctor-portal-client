@@ -10,7 +10,7 @@ const AppointmentOption = ({ appointmentOption,date, setTreatment }) => {
   const [loader, setLoader] = useState(false)
   const [disabledSubmitBtn, setDisabledSubmitBtn] = useState(false)
   const [formData, setFormData] = useState({
-    patientName: '',
+    patientName:JSON.parse(localStorage.getItem('userInfo'))?.name,
     studentId: '',
     mobileNo: '',
     date: date,
@@ -97,6 +97,7 @@ const AppointmentOption = ({ appointmentOption,date, setTreatment }) => {
             <div className="form-group my-1">
               <label>Full Name</label>
               <input
+               disabled="true"
                 type="text"
                 className="form-control"
                 name="patientName"

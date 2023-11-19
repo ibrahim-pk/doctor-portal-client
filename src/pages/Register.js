@@ -12,7 +12,7 @@ function Register() {
   const onFinish = async (values) => {
     try {
       dispatch(showLoading());
-      const response = await axios.post("/api/user/register", values);
+      const response = await axios.post("https://portal-server-rosy.vercel.app/api/user/register", values);
       dispatch(hideLoading());
       if (response.data.success) {
         toast.success(response.data.message);
@@ -28,7 +28,7 @@ function Register() {
 
   return (
     <div className="authentication">
-      <div className="authentication-form card p-3">
+      {/* <div className="authentication-form card p-3">
         <h1 className="card-title">Nice To Meet U</h1>
         <Form layout="vertical" onFinish={onFinish}>
           <Form.Item label="Name" name="name">
@@ -52,7 +52,7 @@ function Register() {
             CLICK HERE TO LOGIN
           </Link>
         </Form>
-      </div>
+      </div> */}
     </div>
   );
 }

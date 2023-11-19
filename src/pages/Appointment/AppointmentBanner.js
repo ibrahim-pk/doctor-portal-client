@@ -6,24 +6,21 @@ const AppointmentBanner = ({selectedDate, setSelectedDate}) => {
     
     return (
         <header className='my-6'>
-            <div className="">
-                <div style={{
-                    display:"flex",
-                    justifyContent:'space-evenly',
-                    flexDirection:'row-reverse'
-                }}>
-                    <img style={{
-                        width:'500px',
-                        height:'auto'
-                    }} src="/image/meet.jpg" alt="" className="" />
-                    <div className=''>
+            <div className="row gap-4 BannerSection">
+                <div className='col-md-5'>
+                    <img  src="/image/meet.jpg" alt="" className="" />
+                     </div>
+                     <div className='col-md-1'>
+
+                     </div>
+                    <div className='col-md-5'>
                         <DayPicker 
                             mode='single'
                             selected={selectedDate}
                             onSelect={setSelectedDate}
                         />
                     </div>
-                </div>
+               
             </div>
         </header>
     );
