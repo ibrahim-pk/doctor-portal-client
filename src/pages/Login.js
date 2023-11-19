@@ -49,7 +49,7 @@ function Login() {
               navigate("/");
             } else {
               dispatch(hideLoading());
-              toast.error(response.data.message);
+              toast.error(response?.data?.message);
             }
           };
 
